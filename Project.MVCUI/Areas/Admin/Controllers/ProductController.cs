@@ -101,9 +101,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         {
             AdminProductListPageVM aplvm = new AdminProductListPageVM
             {
-
                 Categories = GetCategories()
-
             };
             return View(aplvm);
         }
@@ -118,9 +116,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
                 UnitPrice = product.UnitPrice,
                 ID = product.ID
             };
-
             _pRep.Add(p);
-
             return RedirectToAction("ListProducts");
         }
  
@@ -145,8 +141,23 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult UpdateProduct(AdminProductVM product)
         {
+            Product p = new Product
+            {
+                ProductName = product.ProductName,
+                UnitInStock = product.UnitInStock,
+                UnitPrice = product.UnitPrice,
+            };
+            _pRep.Update(p);
+
+            return RedirectToAction("ListProducts");
             
         }
         
+
+        public ActionResult DeleteProduct(int id)
+        {
+            _pRep.Delete(_pRep.Find(id));
+            return RedirectToAction("ListProducts");
+        }
     }
 }
