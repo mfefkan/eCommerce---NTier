@@ -1,0 +1,81 @@
+﻿@model AdminAddUpdateProductPageVM
+@{
+    ViewBag.Title = "UpdateProduct";
+}
+
+
+<style>
+
+    .genislik {
+        width: 300px;
+    }
+</style>
+
+@using (Html.BeginForm("UpdateProduct", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.HiddenFor(x=> x.Product.ID)
+    <div class="row">
+
+        <div class="col-sm-12">
+
+            <section class="panel">
+
+                <header class="panel-heading">
+                    Ürün Ekleme Sayfası
+                </header>
+
+                <br /> <br />
+
+                <div class="form-group">
+                    <label class="col-sm-2">Ürün Isim</label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.Product.ProductName, new { @class = "form-control-genislik" })
+                    </div>
+                </div>
+
+                <br /> <br />
+
+                <div class="form-group">
+                    <label class="col-sm-2">Ürün Fiyat</label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.Product.UnitPrice, new { @class = "form-control-genislik" })
+                    </div>
+                </div>
+
+                <br />  <br />
+
+                <div class="form-group">
+                    <label class="col-sm-2">Ürün Stok Adedi</label>
+                    <div class="col-sm-10">
+                        @Html.TextBoxFor(x => x.Product.UnitInStock, new { @class = "form-control-genislik" })
+                    </div>
+                </div>
+
+                <br />  <br />
+
+                <div class="form-group">
+                    <label class="col-sm-2">Ürün Kategorisi'</label>
+                    <div class="col-sm-10">
+                        @Html.DropDownListFor(x => x.Product.CategoryID, new SelectList(Model.Categories, "ID", "CategoryName"), "Lütfen Seçiniz", new { @class = "form-control-genislik" })
+                    </div>
+                </div>
+
+                <br />  <br />
+                 
+
+                <div class="form-group">
+
+                    <label class="col-sm-2">İşlem:</label>
+                    <div class="col-sm-10">
+                        <button class="btn btn-primary">Güncelle</button>
+                    </div>
+
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </div>
+}

@@ -12,6 +12,9 @@ namespace Project.VM.PureVMs
         public string ProductName { get; set; }
         public short UnitInStock { get; set; }
         public decimal UnitPrice { get; set; }
+        public string Category { get; set; }
+        public int CategoryID { get; set; }
+        public string ImagePath { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime? ModifiedDate { get; set; }
         public DateTime? DeletedDate { get; set; }

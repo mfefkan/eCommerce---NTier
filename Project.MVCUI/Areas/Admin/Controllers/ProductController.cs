@@ -1,10 +1,12 @@
 ﻿using Project.BLL.RepositoryPattern.ConcRep;
 using Project.ENTITIES.Models;
 using Project.MVCUI.Areas.Admin.Data.AdminPageVMs;
+using Project.MVCUI.Models.CustomTools;
 using Project.VM.PureVMs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Resources;
 using System.Web;
 using System.Web.Mvc;
 
@@ -64,8 +66,6 @@ namespace Project.MVCUI.Areas.Admin.Controllers
                 };
                 return View(aplpvm);
             }
-            
-
 
         }
 
@@ -99,7 +99,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
 
         public ActionResult AddProduct()
         {
-            AdminProductListPageVM aplvm = new AdminProductListPageVM
+            AdminAddUpdateProductPageVM aplvm = new AdminAddUpdateProductPageVM
             {
                 Categories = GetCategories()
             };
@@ -107,14 +107,16 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddProduct(AdminProductVM product)
+        public ActionResult AddProduct(AdminProductVM product,HttpPostedFileBase image,string fileName)
         {
             Product p = new Product
             {
                 ProductName = product.ProductName,
                 UnitInStock = product.UnitInStock,
                 UnitPrice = product.UnitPrice,
-                ID = product.ID
+                ID = product.ID,
+                CategoryID = product.CategoryID,
+                ImagePath = product.ImagePath = ImageUploader.UploadImage("/Pictures/",image,fileName)
             };
             _pRep.Add(p);
             return RedirectToAction("ListProducts");
@@ -123,31 +125,42 @@ namespace Project.MVCUI.Areas.Admin.Controllers
            
         public ActionResult UpdateProduct(int id)
         {
-            Product p = _pRep.Find(id);
-            AdminProductVM productVM = new AdminProductVM
+            Product willBeUpdated = _pRep.Find(id);
+
+            AdminProductVM wbuVM = new AdminProductVM
             {
-                ProductName = p.ProductName,
-                UnitInStock = p.UnitInStock,
-                UnitPrice = p.UnitPrice,
-                ID = p.ID,
-                DeletedDate = p.DeletedDate,
-                ModifiedDate = p.UpdatedDate,
-                CreatedDate = p.CreatedDate,
-                Status = p.Status.ToString()
+                ProductName = willBeUpdated.ProductName,
+                UnitInStock = willBeUpdated.UnitInStock,
+                UnitPrice = willBeUpdated.UnitPrice,
+                ID = willBeUpdated.ID,
+                CategoryID = willBeUpdated.CategoryID
             };
-            return View(productVM);
+
+
+            AdminAddUpdateProductPageVM aupp = new AdminAddUpdateProductPageVM
+            {
+                Categories = _cRep.Select(x => new AdminCategoryVM
+                {
+                    ID = x.ID,
+                    CategoryName = x.CategoryName,
+                    Description = x.Description
+                }).ToList(),
+                Product = wbuVM
+            }; 
+            return View(aupp);
         }
 
         [HttpPost]
         public ActionResult UpdateProduct(AdminProductVM product)
         {
-            Product p = new Product
-            {
-                ProductName = product.ProductName,
-                UnitInStock = product.UnitInStock,
-                UnitPrice = product.UnitPrice,
-            };
-            _pRep.Update(p);
+            Product toBeUpdated = _pRep.Find(product.ID);
+            toBeUpdated.ProductName = product.ProductName;
+            toBeUpdated.UnitInStock = product.UnitInStock;
+            toBeUpdated.UnitPrice = product.UnitPrice;
+            toBeUpdated.ID = product.ID;
+            toBeUpdated.CategoryID = product.CategoryID;
+
+            _pRep.Update(toBeUpdated);
 
             return RedirectToAction("ListProducts");
             

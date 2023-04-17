@@ -20,7 +20,7 @@ namespace Project.MVCUI.Models.CustomTools
 
                 string fileName = $"{uniqueName}.{name}.{extension}";
 
-                if (extension=="jpg"  || extension == "gif"  || extension == "png")
+                if (extension=="jpg" || extension=="jpeg" || extension == "gif"  || extension == "png")
                 {
                     if (File.Exists(HttpContext.Current.Server.MapPath(serverPath+fileName)))
                     {

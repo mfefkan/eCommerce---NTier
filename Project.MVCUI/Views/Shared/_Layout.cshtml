@@ -270,6 +270,11 @@
                             <li><a href="#"><i class="icon-cog"></i> Settings</a></li>
                             <li><a href="#"><i class="icon-bell-alt"></i> Notification</a></li>
                             <li><a href="login.html"><i class="icon-key"></i> Log Out</a></li>
+                            @RenderSection("Sepet",false) <!--Açtığımz rendersection doldurulması zorunlu bir alan değildir. Ancak bir viewda isterseniz o view'e ek bir tasarım yapılmasını sağlayabilirsiniz...'-->
+                            @if (Session["member"] != null)
+            {
+                            <li><a href="login.html"><i class="icon-key"></i>Log Out</a></li>
+            }
                         </ul>
                     </li>
                     <!-- user login dropdown end -->
