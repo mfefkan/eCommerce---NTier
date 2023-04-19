@@ -25,10 +25,8 @@ namespace Project.MVCUI.Controllers
             _oDRep = new OrderDetailRepository();
             _cRep = new CategoryRepository();
         }
-
         public ActionResult ShoppingList(int? page,int? categoryID) //Nullable int olmasının sebebi kaçıncı sayfada olduğunu belirtmek için. İlk açılışta bu null olur daha sonrasında client isterse istenen sayfayı getirir...Aynı zamanda bu sayfa ürünleri kategorilerine göre de listeleyebileceği için bir diğer parametremiz de nullable CategoryID.
         {
-
             PagginationVM pavm = new PagginationVM
             {
                 PagedProducts = categoryID == null ? _pRep.GetActives().Select(x => new ProductVM
@@ -58,18 +56,23 @@ namespace Project.MVCUI.Controllers
 
                 }).ToList()
             };
-
             if (categoryID != null) TempData["catID"] = categoryID;
-
             return View(pavm);
-
         }
 
         public ActionResult AddToCart(int id)
         {
             Cart c = Session["scart"] == null ? new Cart() : Session["scart"] as Cart;
 
-            Product eklenecekUrun = _pRep.Find(id);
+            ProductVM eklenecekUrun = _pRep.Select(x => new ProductVM
+            {
+                ProductName = x.ProductName,
+                UnitInStock = x.UnitInStock,
+                UnitPrice = x.UnitPrice,
+                CategoryID = x.CategoryID,
+                ImagePath = x.ImagePath,
+
+            }).FirstOrDefault(x=> x.ID == id);
 
             CartItem ci = new CartItem
             {
