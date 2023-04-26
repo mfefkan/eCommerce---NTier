@@ -54,6 +54,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
                         CreatedDate = item.CreatedDate,
                         ModifiedDate = item.UpdatedDate,
                         DeletedDate = item.DeletedDate,
+                        CategoryName = item.Category.CategoryName
 
                     };
 
@@ -80,7 +81,8 @@ namespace Project.MVCUI.Areas.Admin.Controllers
                 Status = x.Status.ToString(),
                 CreatedDate =x.CreatedDate,
                 ModifiedDate = x.UpdatedDate,
-                DeletedDate = x.DeletedDate
+                DeletedDate = x.DeletedDate,
+                CategoryName = x.Category.CategoryName
                 
             }).ToList();
        
@@ -116,7 +118,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
                 UnitPrice = product.UnitPrice,
                 ID = product.ID,
                 CategoryID = product.CategoryID,
-                ImagePath = product.ImagePath = ImageUploader.UploadImage("/Pictures/",image,fileName)
+                ImagePath = product.ImagePath = ImageUploader.UploadImage("/Pictures/",image,fileName) // Bunu tekrar et.
             };
             _pRep.Add(p);
             return RedirectToAction("ListProducts");
@@ -154,6 +156,7 @@ namespace Project.MVCUI.Areas.Admin.Controllers
         public ActionResult UpdateProduct(AdminProductVM product)
         {
             Product toBeUpdated = _pRep.Find(product.ID);
+
             toBeUpdated.ProductName = product.ProductName;
             toBeUpdated.UnitInStock = product.UnitInStock;
             toBeUpdated.UnitPrice = product.UnitPrice;

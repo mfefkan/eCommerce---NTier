@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Project.MVCUI.Models.ShoppingTools
+namespace Project.MVCUI.Models.PageVMs
 {
     public class PagginationVM
     {
