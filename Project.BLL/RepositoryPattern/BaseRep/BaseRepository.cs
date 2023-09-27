@@ -14,6 +14,8 @@ namespace Project.BLL.RepositoryPattern.BaseRep
     public abstract class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
 
+        // Burada IRepository implement edilmiştir. Ayrıca BaseRepository<T> generic olarak verilmiştir. where T : BaseEntity ile bu generic sınıfın çalışacağı tür belirtilmiştir. Yani bu sınıf BaseEntity ile çalışır demiş oluyoruz.
+
         MyContext _db;
         public BaseRepository()
         {

@@ -9,13 +9,7 @@ namespace Project.COMMON.Tools
 {
     public static class DantexCrypt
     {
-        //Merhaba hocam merhaba arkadaşlar
-
-        //Merhaba Dogancan : )
-
-        //Noluyor yahu
-
-        //Hicbir şeye bakmadan push ediyorum...
+        //Bu servis özel olarak hazırlanmış bir çeşit criptolama servisidir. Aldığı string ifadede düzenleme yapar ve bu şekilde gelen veri direkt olarak database'e girmemiş olur. Veri güvenliği açısından önemlidir.
         public static string Crypt(string a)
         {
             Random rnd = new Random();

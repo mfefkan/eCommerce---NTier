@@ -20,5 +20,6 @@ namespace Project.ENTITIES.Models
             CreatedDate = DateTime.Now;
             Status = DataStatus.Inserted;
         }
+
     }
 }

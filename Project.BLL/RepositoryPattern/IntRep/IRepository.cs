@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 namespace Project.BLL.RepositoryPattern.IntRep
 {
     public interface IRepository<T> where T : BaseEntity
+
+
+        // Bu interface generic olarak tanımlanmış ve BaseEntity ile çalışacağını belirtmiştir. 
+
+
     {
         //List Commands
 
